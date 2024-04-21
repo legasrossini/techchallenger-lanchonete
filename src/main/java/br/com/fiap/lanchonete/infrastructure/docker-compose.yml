@@ -12,3 +12,4 @@ services:
       - "3306:3306"
     volumes:
       - ./db/clientes.sql:/docker-entrypoint-initdb.d/clientes.sql
+      - ./db/produtos.sql:/docker-entrypoint-initdb.d/produtos.sql
