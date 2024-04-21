@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.config.exception;
+package br.com.fiap.lanchonete.infrastructure.configs.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 

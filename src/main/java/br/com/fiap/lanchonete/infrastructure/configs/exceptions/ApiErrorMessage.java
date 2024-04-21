@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.config.exception;
+package br.com.fiap.lanchonete.infrastructure.configs.exceptions;
 
 import org.springframework.http.HttpStatus;
 

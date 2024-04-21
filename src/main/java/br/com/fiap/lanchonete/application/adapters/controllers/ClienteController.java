@@ -1,28 +1,30 @@
 package br.com.fiap.lanchonete.application.adapters.controllers;
 
-import br.com.fiap.lanchonete.domain.dtos.Cliente;
+import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImp;
+import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("lanchonete/v1/clientes")
+@RequestMapping("/lanchonete/v1/clientes")
 public class ClienteController {
 
-    Cliente teste = new Cliente("222", "teste", "teste");
+    @Autowired
+    private ClienteServiceImp clienteService;
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<Cliente> getClienteByCpf(@PathVariable String cpf) {
-        //Cliente cliente = clienteService.findByCpf(cpf);
-
-        return ResponseEntity.ok(teste);
+    public ResponseEntity<ClienteDto> getClienteByCpf(@PathVariable String cpf) {
+        ClienteDto clienteDTO = clienteService.findByCpf(cpf);
+        if (clienteDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(clienteDTO);
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-        //Cliente savedCliente = clienteService.save(cliente);
-
-        return ResponseEntity.ok(teste);
+    public ResponseEntity<ClienteDto> createCliente(@RequestBody ClienteDto clienteDTO) {
+        ClienteDto savedClienteDTO = clienteService.save(clienteDTO);
+        return ResponseEntity.ok(savedClienteDTO);
     }
 }
