@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class ClienteServiceImp implements ClienteServicePort {
 
     private final ClienteRepositoryPort clienteRepository;
-    private final ModelMapper modelMapper;
+    final ModelMapper modelMapper;
 
     @Autowired
     public ClienteServiceImp(ClienteRepositoryPort clienteRepository, ModelMapper modelMapper) {
@@ -25,7 +25,5 @@ public class ClienteServiceImp implements ClienteServicePort {
     }
 
     @Override
-    public ClienteDto save(ClienteDto clienteDTO) {
-        return clienteRepository.save(clienteDTO);
-    }
+    public ClienteDto save(ClienteDto clienteDto) { return clienteRepository.save(clienteDto); }
 }

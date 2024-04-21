@@ -33,6 +33,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Spring Boot Starter Validation, para validações bean -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 		<!-- Lombok, para reduzir boilerplate code -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

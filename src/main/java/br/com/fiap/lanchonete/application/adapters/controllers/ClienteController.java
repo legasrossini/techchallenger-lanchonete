@@ -2,6 +2,7 @@ package br.com.fiap.lanchonete.application.adapters.controllers;
 
 import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImp;
 import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,9 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDto> createCliente(@RequestBody ClienteDto clienteDTO) {
+    public ResponseEntity<ClienteDto> createCliente(@Valid @RequestBody ClienteDto clienteDTO) {
         ClienteDto savedClienteDTO = clienteService.save(clienteDTO);
         return ResponseEntity.ok(savedClienteDTO);
     }
+
 }
