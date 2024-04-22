@@ -39,7 +39,7 @@ public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
         return produtoJpaRepository.findAll()
                 .stream()
                 .map(entity -> modelMapper.map(entity, ProdutoDto.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

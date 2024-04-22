@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonete.domain.ports.interfaces;
 
-import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
 import br.com.fiap.lanchonete.domain.dtos.ProdutoDto;
 
 import java.util.List;
