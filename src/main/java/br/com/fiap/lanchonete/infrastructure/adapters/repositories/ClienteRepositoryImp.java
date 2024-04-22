@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClienteRepository implements ClienteRepositoryPort {
+public class ClienteRepositoryImp implements ClienteRepositoryPort {
 
     @Autowired
     private ClienteJpaRepository repository;
@@ -17,8 +17,8 @@ public class ClienteRepository implements ClienteRepositoryPort {
     private ModelMapper modelMapper;
 
     @Override
-    public ClienteDto findByCpf(String cpf) {
-        return repository.findById(cpf)
+    public ClienteDto findByCpfCliente(String cpfCliente) {
+        return repository.findById(cpfCliente)
                 .map(entity -> modelMapper.map(entity, ClienteDto.class))
                 .orElse(null);
     }

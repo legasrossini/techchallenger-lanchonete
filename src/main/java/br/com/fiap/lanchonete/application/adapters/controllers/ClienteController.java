@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonete.application.adapters.controllers;
 
-import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImp;
+import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImpl;
 import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class ClienteController {
 
     @Autowired
-    private ClienteServiceImp clienteService;
+    private ClienteServiceImpl clienteServiceImpl;
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<ClienteDto> getClienteByCpf(@PathVariable String cpf) {
-        ClienteDto clienteDTO = clienteService.findByCpf(cpf);
+    @GetMapping("/{cpfCliente}")
+    public ResponseEntity<ClienteDto> getClienteByCpf(@PathVariable String cpfCliente) {
+        ClienteDto clienteDTO = clienteServiceImpl.findByCpfCliente(cpfCliente);
         if (clienteDTO == null) {
             return ResponseEntity.notFound().build();
         }
@@ -25,7 +25,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteDto> createCliente(@Valid @RequestBody ClienteDto clienteDTO) {
-        ClienteDto savedClienteDTO = clienteService.save(clienteDTO);
+        ClienteDto savedClienteDTO = clienteServiceImpl.save(clienteDTO);
         return ResponseEntity.ok(savedClienteDTO);
     }
 
