@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonete.controllers;
 
-import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImp;
+import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImpl;
 import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
 import br.com.fiap.lanchonete.domain.ports.repositories.ClienteRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ public class ClienteControllerTest {
     private ModelMapper modelMapper;
 
     @InjectMocks
-    private ClienteServiceImp clienteService;
+    private ClienteServiceImpl clienteService;
 
     @BeforeEach
     void setUp() {
@@ -34,15 +34,15 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void findByCpfSuccess() {
-        String cpf = "12345678900";
+    void findByCpfClienteSuccess() {
+        String cpfCliente = "12345678900";
         ClienteDto mockClienteDto = new ClienteDto();
-        when(clienteRepository.findByCpf(cpf)).thenReturn(mockClienteDto);
+        when(clienteRepository.findByCpfCliente(cpfCliente)).thenReturn(mockClienteDto);
 
-        ClienteDto result = clienteService.findByCpf(cpf);
+        ClienteDto result = clienteService.findByCpfCliente(cpfCliente);
 
         assertNotNull(result);
-        verify(clienteRepository, times(1)).findByCpf(cpf);
+        verify(clienteRepository, times(1)).findByCpfCliente(cpfCliente);
     }
 
     @Test

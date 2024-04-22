@@ -3,25 +3,18 @@ package br.com.fiap.lanchonete.domain.adapters.services;
 import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
 import br.com.fiap.lanchonete.domain.ports.interfaces.ClienteServicePort;
 import br.com.fiap.lanchonete.domain.ports.repositories.ClienteRepositoryPort;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClienteServiceImp implements ClienteServicePort {
-
-    private final ClienteRepositoryPort clienteRepository;
-    final ModelMapper modelMapper;
+public class ClienteServiceImpl implements ClienteServicePort {
 
     @Autowired
-    public ClienteServiceImp(ClienteRepositoryPort clienteRepository, ModelMapper modelMapper) {
-        this.clienteRepository = clienteRepository;
-        this.modelMapper = modelMapper;
-    }
+    private ClienteRepositoryPort clienteRepository;
 
     @Override
-    public ClienteDto findByCpf(String cpf) {
-        return clienteRepository.findByCpf(cpf);
+    public ClienteDto findByCpfCliente(String cpfCliente) {
+        return clienteRepository.findByCpfCliente(cpfCliente);
     }
 
     @Override
