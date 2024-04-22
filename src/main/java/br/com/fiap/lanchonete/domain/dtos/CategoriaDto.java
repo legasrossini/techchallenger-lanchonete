@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteDto {
-
-    private String cpfCliente;
-    private String nomeCliente;
-    private String emailCliente;
+public class CategoriaDto {
+    private Integer idCategoria;
+    private String nomeCategoria;
 }
