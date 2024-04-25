@@ -3,6 +3,7 @@ version: '3.8'
 services:
   db:
     image: mysql:5.7
+    command: --pid-file=/var/lib/mysql/mysqld.pid
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: lanchonete_db
