@@ -2,6 +2,7 @@ package br.com.fiap.lanchonete.infrastructure.adapters.repositories;
 
 import br.com.fiap.lanchonete.domain.dtos.ProdutoDto;
 import br.com.fiap.lanchonete.domain.ports.repositories.ProdutoRepositoryPort;
+import br.com.fiap.lanchonete.infrastructure.adapters.entity.CategoriaEntity;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.ProdutoEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
@@ -44,6 +46,22 @@ public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
     @Override
     public void deleteByIdProduto(String idProduto) {
         produtoJpaRepository.deleteByIdProduto(idProduto);
+    }
+
+    @Override
+    public List<ProdutoDto> findAllByAtivoTrue() {
+        return produtoJpaRepository.findAllByAtivoTrue()
+                .stream()
+                .map(entity -> modelMapper.map(entity, ProdutoDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProdutoDto> findAllByAtivoTrueAndCategoria(CategoriaEntity categoria) {
+        return produtoJpaRepository.findAllByAtivoTrueAndCategoria(categoria)
+                .stream()
+                .map(entity -> modelMapper.map(entity, ProdutoDto.class))
+                .collect(Collectors.toList());
     }
 
 }

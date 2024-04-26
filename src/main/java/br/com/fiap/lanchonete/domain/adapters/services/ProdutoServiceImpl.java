@@ -3,6 +3,8 @@ package br.com.fiap.lanchonete.domain.adapters.services;
 import br.com.fiap.lanchonete.domain.dtos.ProdutoDto;
 import br.com.fiap.lanchonete.domain.ports.interfaces.ProdutoServicePort;
 import br.com.fiap.lanchonete.domain.ports.repositories.ProdutoRepositoryPort;
+import br.com.fiap.lanchonete.infrastructure.adapters.entity.CategoriaEntity;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,17 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     @Override
     public List<ProdutoDto> findAll() {
         return produtoRepository.findAll();
+    }
+
+    @Override
+    public List<ProdutoDto> findAllByAtivoTrue() {
+        return produtoRepository.findAllByAtivoTrue();
+    }
+
+    @Override
+    public List<ProdutoDto> findByCategoria(Integer idCategoria) {
+        return produtoRepository.findAllByAtivoTrueAndCategoria(
+                CategoriaEntity.builder().idCategoria(Optional.ofNullable(idCategoria).orElse(0)).build());
     }
 
     @Override

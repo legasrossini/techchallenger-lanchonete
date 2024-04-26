@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS produto (
     descricao_produto VARCHAR(255),
     preco_produto DECIMAL(10, 2) NOT NULL,
     id_categoria INT NOT NULL,
+    ativo TINYINT(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id_produto),
     FOREIGN KEY (id_categoria) REFERENCES categoria (id_categoria)
 );
