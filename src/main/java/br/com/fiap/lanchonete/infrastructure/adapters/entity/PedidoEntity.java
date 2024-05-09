@@ -1,10 +1,11 @@
 package br.com.fiap.lanchonete.infrastructure.adapters.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -12,17 +13,9 @@ import java.util.UUID;
 @Table(name = "pedido")
 public class PedidoEntity {
     @Id
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    @Column(name = "id_pedido", nullable = false)
+    private UUID idPedido;
 
-//    @Column(name = "data_hora_pedido", nullable = false)
-//    private Date dataHoraPedido;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "cliente")
     @Column(name = "cliente")
-    private ClienteEntity cliente;
-//
-//    @Column(name = "items", nullable = false)
-//    private List<Integer> items;
+    private String cliente;
 }
