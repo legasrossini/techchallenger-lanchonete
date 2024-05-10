@@ -1,12 +1,10 @@
 package br.com.fiap.lanchonete.infrastructure.adapters.entity;
 
-
 import jakarta.persistence.*;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
-
 
 @Data
 @Entity
@@ -29,4 +27,7 @@ public class ProdutoEntity {
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false)
     private CategoriaEntity categoria;
+
+    @Column(nullable = false)
+    private boolean ativo = true;
 }
