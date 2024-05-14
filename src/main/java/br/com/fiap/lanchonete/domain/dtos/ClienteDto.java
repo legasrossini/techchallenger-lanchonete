@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClienteDto {
 
-    private String cpfCliente;
-    private String nomeCliente;
-    private String emailCliente;
+    private String cpf;
+    private String nome;
+    private String email;
 }

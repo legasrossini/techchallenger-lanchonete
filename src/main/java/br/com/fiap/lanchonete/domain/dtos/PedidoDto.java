@@ -14,8 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PedidoDto {
-    private UUID idPedido;
-    private Date dataHoraPedido;
-    private String cliente;
-    private List<Integer> items;
+    //private UUID idPedido;
+    //private Date dataHoraPedido;
+    //private String cliente;
+    private List<ComboDto> produtos;
 }

@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaDto {
-    private Integer id;
-    private String nome;
+public class ComboDto {
+
+    private String lanche;
+    private String acompanhamento;
+    private String bebida;
+    private String sobremesa;
+
 }

@@ -24,7 +24,7 @@ public class CategoriaRepositoryImp implements CategoriaRepositoryPort {
         return repository.findAll()
                     .stream()
                     .map(entity -> modelMapper.map(entity, CategoriaDto.class))
-                    .sorted(Comparator.comparingInt(CategoriaDto::getIdCategoria))
+                    .sorted(Comparator.comparingInt(CategoriaDto::getId))
                     .toList();
     }
 

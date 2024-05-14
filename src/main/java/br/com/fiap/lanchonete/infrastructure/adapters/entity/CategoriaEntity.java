@@ -17,11 +17,11 @@ import java.util.List;
 @Table(name = "categoria")
 public class CategoriaEntity {
     @Id
-    @Column(name = "id_categoria")
-    private Integer idCategoria;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name = "nome_categoria", nullable = false)
-    private String nomeCategoria;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
     @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
     private List<ProdutoEntity> produtos;

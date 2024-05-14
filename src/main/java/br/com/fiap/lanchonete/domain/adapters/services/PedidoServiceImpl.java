@@ -17,7 +17,7 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
     @Override
     public PedidoDto save(PedidoDto pedidoDto) {
-        pedidoDto.setIdPedido(UUID.randomUUID());
+
         return pedidoRepositoryPort.save(pedidoDto);
     }
     @Override

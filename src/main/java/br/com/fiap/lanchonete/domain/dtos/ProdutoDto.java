@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class ProdutoDto {
 
     @Schema(accessMode = AccessMode.READ_ONLY)
-    private String idProduto;
-    private String nomeProduto;
-    private String descricaoProduto;
-    private Double precoProduto;
+    private String id;
+    private String nome;
+    private String descricao;
+    private BigDecimal preco;
     private CategoriaDto categoria;
 }

@@ -19,7 +19,7 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
 
     @Override
     public ProdutoDto save(ProdutoDto produtoDto) {
-        produtoDto.setIdProduto(UUID.randomUUID().toString());
+        produtoDto.setId(UUID.randomUUID().toString());
         return produtoRepository.save(produtoDto);
     }
 
@@ -41,7 +41,7 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     @Override
     public List<ProdutoDto> findByCategoria(Integer idCategoria) {
         return produtoRepository.findAllByAtivoTrueAndCategoria(
-                CategoriaEntity.builder().idCategoria(Optional.ofNullable(idCategoria).orElse(0)).build());
+                CategoriaEntity.builder().id(Optional.ofNullable(idCategoria).orElse(0)).build());
     }
 
     @Override
@@ -52,13 +52,13 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     @Override
     public ProdutoDto saveOrUpdate(ProdutoDto produtoDto) {
         // Verifica se o produto já existe
-        Optional<ProdutoDto> existingProduto = produtoRepository.findByIdProduto(produtoDto.getIdProduto());
+        Optional<ProdutoDto> existingProduto = produtoRepository.findByIdProduto(produtoDto.getId());
         if (existingProduto.isPresent()) {
             // Atualiza o produto existente
             ProdutoDto updatedProduto = existingProduto.get();
-            updatedProduto.setNomeProduto(produtoDto.getNomeProduto());
-            updatedProduto.setDescricaoProduto(produtoDto.getDescricaoProduto());
-            updatedProduto.setPrecoProduto(produtoDto.getPrecoProduto());
+            updatedProduto.setNome(produtoDto.getNome());
+            updatedProduto.setDescricao(produtoDto.getDescricao());
+            updatedProduto.setPreco(produtoDto.getPreco());
             updatedProduto.setCategoria(produtoDto.getCategoria());
             return produtoRepository.save(updatedProduto);
         } else {

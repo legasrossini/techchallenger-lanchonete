@@ -12,17 +12,17 @@ import java.math.BigDecimal;
 public class ProdutoEntity {
 
     @Id
-    @Column(name = "id_produto")
-    private String idProduto;
+    @Column(name = "id")
+    private String id;
 
-    @Column(name = "nome_produto", nullable = false)
-    private String nomeProduto;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-    @Column(name = "descricao_produto")
-    private String descricaoProduto;
+    @Column(name = "descricao")
+    private String descricao;
 
-    @Column(name = "preco_produto", nullable = false)
-    private BigDecimal precoProduto;
+    @Column(name = "preco", nullable = false)
+    private BigDecimal preco;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false)
