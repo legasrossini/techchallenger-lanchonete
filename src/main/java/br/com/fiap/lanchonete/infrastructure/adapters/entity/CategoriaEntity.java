@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +23,6 @@ public class CategoriaEntity {
     @Column(name = "nome_categoria", nullable = false)
     private String nomeCategoria;
 
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
     private List<ProdutoEntity> produtos;
 }
