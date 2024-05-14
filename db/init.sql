@@ -22,6 +22,11 @@ CREATE TABLE IF NOT EXISTS produto (
     FOREIGN KEY (id_categoria) REFERENCES categoria (id_categoria)
 );
 
+CREATE TABLE IF NOT EXISTS pedido (
+    id_pedido VARCHAR(100) NOT NULL,
+    cliente VARCHAR(11) NOT NULL,
+);
+
 INSERT INTO categoria (id_categoria, nome_categoria) VALUES
 (1, 'Lanche'),
 (2, 'Acompanhamento'),
