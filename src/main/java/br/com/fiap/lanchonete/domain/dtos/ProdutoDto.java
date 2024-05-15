@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -27,21 +29,27 @@ public class ProdutoDto {
     private String descricao;
     private BigDecimal preco;
     private CategoriaDto categoria;
+    
     @Schema(accessMode = AccessMode.READ_ONLY)
-    private boolean ativo;
+    @Builder.Default
+    private boolean ativo = true;
 
+    @JsonIgnore
     public boolean isLanche(){
         return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_LANCHE);
     }
 
+    @JsonIgnore
     public boolean isAcompanhamento(){
         return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_ACOMPANHAMENTO);
     }
 
+    @JsonIgnore
     public boolean isBebida(){
         return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_BEBIDA);
     }
 
+    @JsonIgnore
     public boolean isSobremesa(){
         return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_SOBREMESA);
     }

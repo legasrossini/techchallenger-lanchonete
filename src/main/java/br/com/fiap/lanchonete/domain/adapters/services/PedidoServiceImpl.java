@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.lanchonete.domain.dtos.PedidoDto;
-import br.com.fiap.lanchonete.domain.dtos.ProdutoCheckoutDto;
 import br.com.fiap.lanchonete.domain.dtos.ProdutoDto;
+import br.com.fiap.lanchonete.domain.ports.interfaces.ClienteServicePort;
 import br.com.fiap.lanchonete.domain.ports.interfaces.PedidoServicePort;
 import br.com.fiap.lanchonete.domain.ports.interfaces.ProdutoServicePort;
 import br.com.fiap.lanchonete.domain.ports.repositories.PedidoRepositoryPort;
@@ -27,15 +26,26 @@ public class PedidoServiceImpl implements PedidoServicePort {
     @Autowired
     private ProdutoServicePort produtoService;
 
+    @Autowired
+    private ClienteServicePort clienteService;
+
     @Override
     public PedidoDto save(PedidoDto pedidoDto) {
         BigDecimal valorPedido = BigDecimal.ZERO;
         AtomicInteger comboNum = new AtomicInteger(1);
-        Optional.ofNullable(pedidoDto.getProdutos()).orElse(Collections.emptyList()).forEach(p->{
-            Optional<ProdutoDto> lancheOptional = produtoService.findByIdProduto(p.getLanche().getId());
-            Optional<ProdutoDto> sobremesaOptional = produtoService.findByIdProduto(p.getSobremesa().getId());
-            Optional<ProdutoDto> bebidaOptional = produtoService.findByIdProduto(p.getBebida().getId());
-            Optional<ProdutoDto> acompanhamentoOptional = produtoService.findByIdProduto(p.getAcompanhamento().getId());
+
+        boolean clienteInformado = pedidoDto.getCpfCliente() != null && !pedidoDto.getCpfCliente().isEmpty();
+        var clienteEntity = clienteInformado ? clienteService.findByCpfCliente(pedidoDto.getCpfCliente()) : null;
+
+        if (clienteInformado && clienteEntity == null){
+            throw new RegraNegocioException("Cliente não localizado");
+        }
+        
+        for (var p : Optional.ofNullable(pedidoDto.getProdutos()).orElse(Collections.emptyList())){
+            Optional<ProdutoDto> lancheOptional = p.possuiLanche() ? produtoService.findByIdProduto(p.getLanche().getId()) : Optional.empty();
+            Optional<ProdutoDto> sobremesaOptional = p.possuiSobremesa() ? produtoService.findByIdProduto(p.getSobremesa().getId()) : Optional.empty();
+            Optional<ProdutoDto> bebidaOptional = p.possuiBebida() ? produtoService.findByIdProduto(p.getBebida().getId()) : Optional.empty();
+            Optional<ProdutoDto> acompanhamentoOptional = p.possuiAcompanhamento() ? produtoService.findByIdProduto(p.getAcompanhamento().getId()) : Optional.empty();
             
             boolean lancheValido = !p.possuiLanche() || (lancheOptional.isPresent() && lancheOptional.get().isLanche());
 
@@ -55,27 +65,27 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
             if (p.possuiLanche()){
                 p.getLanche().setPreco(lancheOptional.get().getPreco());
-                valorPedido.add(p.getLanche().getPreco());
+                valorPedido = valorPedido.add(p.getLanche().getPreco());
             }
 
             if (p.possuiSobremesa()){
                 p.getSobremesa().setPreco(sobremesaOptional.get().getPreco());
-                valorPedido.add(p.getSobremesa().getPreco());
+                valorPedido = valorPedido.add(p.getSobremesa().getPreco());
             }
 
             if (p.possuiBebida()){
                 p.getBebida().setPreco(bebidaOptional.get().getPreco());
-                valorPedido.add(p.getBebida().getPreco());
+                valorPedido = valorPedido.add(p.getBebida().getPreco());
             }
 
             if (p.possuiAcompanhamento()){
                 p.getAcompanhamento().setPreco(acompanhamentoOptional.get().getPreco());
-                valorPedido.add(p.getAcompanhamento().getPreco());
+                valorPedido = valorPedido.add(p.getAcompanhamento().getPreco());
             }
 
             p.setComboNum(comboNum.getAndIncrement());
 
-        });
+        };
 
         pedidoDto.setValor(valorPedido);
 
