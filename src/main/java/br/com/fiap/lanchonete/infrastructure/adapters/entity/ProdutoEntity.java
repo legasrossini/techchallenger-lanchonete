@@ -1,12 +1,17 @@
 package br.com.fiap.lanchonete.infrastructure.adapters.entity;
 
 import jakarta.persistence.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "produto")
 public class ProdutoEntity {
@@ -28,6 +33,7 @@ public class ProdutoEntity {
     @JoinColumn(name = "id_categoria", nullable = false)
     private CategoriaEntity categoria;
 
+    @Builder.Default
     @Column(nullable = false)
     private boolean ativo = true;
 }

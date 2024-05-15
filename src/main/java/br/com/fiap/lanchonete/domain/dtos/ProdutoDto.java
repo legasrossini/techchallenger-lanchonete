@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Data
 @Builder
@@ -15,10 +16,33 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ProdutoDto {
 
+    private static final Integer ID_CATEGORIA_LANCHE = 1;
+    private static final Integer ID_CATEGORIA_ACOMPANHAMENTO = 2;
+    private static final Integer ID_CATEGORIA_BEBIDA = 3;
+    private static final Integer ID_CATEGORIA_SOBREMESA = 4;
+
     @Schema(accessMode = AccessMode.READ_ONLY)
     private String id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private CategoriaDto categoria;
+    @Schema(accessMode = AccessMode.READ_ONLY)
+    private boolean ativo;
+
+    public boolean isLanche(){
+        return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_LANCHE);
+    }
+
+    public boolean isAcompanhamento(){
+        return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_ACOMPANHAMENTO);
+    }
+
+    public boolean isBebida(){
+        return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_BEBIDA);
+    }
+
+    public boolean isSobremesa(){
+        return Optional.ofNullable(categoria).map(CategoriaDto::getId).orElse(-1).equals(ID_CATEGORIA_SOBREMESA);
+    }
 }

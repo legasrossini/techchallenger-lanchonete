@@ -1,16 +1,13 @@
 package br.com.fiap.lanchonete.domain.dtos;
 
+import java.math.BigDecimal;
+
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.PedidoEntity;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.ProdutoEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Data
 @Builder
