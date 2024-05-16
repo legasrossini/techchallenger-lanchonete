@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.com.fiap.lanchonete.domain.dtos.PedidoDto;
+import br.com.fiap.lanchonete.domain.dtos.PedidoResponseDto;
 import br.com.fiap.lanchonete.domain.ports.repositories.PedidoRepositoryPort;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.ClienteEntity;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.PedidoEntity;
@@ -38,7 +39,7 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
                                             .build();
 
         PedidoEntity pedidoEntity = PedidoEntity.builder()
-                                            .id(UUID.randomUUID())
+                                            .id(UUID.randomUUID().toString())
                                             .cliente(clienteEntity)
                                             .dataHora(LocalDateTime.now())
                                             .status(StatusPedido.RECEBIDO)
@@ -109,6 +110,13 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
         return pedidoJpaRepository.findAll()
                 .stream()
                 .map(entity -> modelMapper.map(entity, PedidoDto.class))
+                .toList();
+    }
+
+    public List<PedidoResponseDto> findAllComProdutos(){
+        return pedidoJpaRepository.findAllComProdutos()
+                .stream()
+                .map(entity -> modelMapper.map(entity, PedidoResponseDto.class))
                 .toList();
     }
 }

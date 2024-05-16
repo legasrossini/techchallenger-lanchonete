@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.lanchonete.domain.adapters.services.PedidoServiceImpl;
 import br.com.fiap.lanchonete.domain.dtos.PedidoDto;
+import br.com.fiap.lanchonete.domain.dtos.PedidoResponseDto;
 import br.com.fiap.lanchonete.infrastructure.exceptions.RegraNegocioException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -41,9 +42,9 @@ public class PedidoController {
     }
     @GetMapping
     @Operation(description = "Lista todos os pedidos")
-    @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = PedidoDto.class)))
-    public ResponseEntity<List<PedidoDto>> getAllPedidos() {
-        List<PedidoDto> pedidos = pedidoServiceImpl.findAll();
+    @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = PedidoResponseDto.class)))
+    public ResponseEntity<List<PedidoResponseDto>> getAllPedidos() {
+        List<PedidoResponseDto> pedidos = pedidoServiceImpl.findAllComProdutos();
         return ResponseEntity.ok(pedidos);
     }
 

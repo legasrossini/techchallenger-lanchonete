@@ -1,12 +1,12 @@
 package br.com.fiap.lanchonete.infrastructure.adapters.repositories;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
 import br.com.fiap.lanchonete.domain.ports.repositories.ClienteRepositoryPort;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.ClienteEntity;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class ClienteRepositoryImp implements ClienteRepositoryPort {

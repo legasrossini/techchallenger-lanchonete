@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.lanchonete.domain.dtos.PedidoDto;
+import br.com.fiap.lanchonete.domain.dtos.PedidoResponseDto;
 import br.com.fiap.lanchonete.domain.dtos.ProdutoDto;
 import br.com.fiap.lanchonete.domain.ports.interfaces.ClienteServicePort;
 import br.com.fiap.lanchonete.domain.ports.interfaces.PedidoServicePort;
@@ -94,5 +95,9 @@ public class PedidoServiceImpl implements PedidoServicePort {
     @Override
     public List<PedidoDto> findAll() {
         return pedidoRepositoryPort.findAll();
+    }
+    @Override
+    public List<PedidoResponseDto> findAllComProdutos() {
+        return pedidoRepositoryPort.findAllComProdutos();
     }
 }

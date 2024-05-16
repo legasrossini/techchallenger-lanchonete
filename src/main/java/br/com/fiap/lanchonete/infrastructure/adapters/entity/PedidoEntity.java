@@ -31,7 +31,7 @@ public class PedidoEntity {
 
     @Id
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "cpf_cliente")
