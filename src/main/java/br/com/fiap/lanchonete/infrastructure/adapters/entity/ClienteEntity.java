@@ -5,20 +5,25 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "cliente")
 public class ClienteEntity {
     @Id
-    @Column(name = "cpf_cliente", nullable = false)
-    private String cpfCliente;
+    @Column(name = "cpf", nullable = false)
+    private String cpf;
 
-    @Column(name = "nome_cliente", nullable = false)
-    private String nomeCliente;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-    @Column(name = "email_cliente", nullable = false)
-    private String emailCliente;
+    @Column(name = "email", nullable = false)
+    private String email;
 }

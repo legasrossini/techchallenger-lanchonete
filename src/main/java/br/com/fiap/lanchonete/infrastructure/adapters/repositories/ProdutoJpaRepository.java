@@ -12,12 +12,12 @@ import br.com.fiap.lanchonete.infrastructure.adapters.entity.ProdutoEntity;
 import jakarta.transaction.Transactional;
 
 public interface ProdutoJpaRepository extends JpaRepository<ProdutoEntity, String> {
-    @Query("SELECT p FROM ProdutoEntity p WHERE p.ativo = true and p.idProduto = :idProduto")
+    @Query("SELECT p FROM ProdutoEntity p WHERE p.ativo = true and p.id = :idProduto")
     Optional<ProdutoEntity> findByIdProduto(String idProduto);
 
     @Transactional
     @Modifying
-    @Query("UPDATE ProdutoEntity p SET p.ativo = false WHERE p.idProduto = :idProduto")
+    @Query("UPDATE ProdutoEntity p SET p.ativo = false WHERE p.id = :idProduto")
     void deleteByIdProduto(String idProduto);
 
     List<ProdutoEntity> findAllByAtivoTrue();

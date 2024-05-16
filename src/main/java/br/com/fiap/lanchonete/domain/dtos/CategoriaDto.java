@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoriaDto {
-    private Integer idCategoria;
-    private String nomeCategoria;
+    private Integer id;
+    private String nome;
 }
