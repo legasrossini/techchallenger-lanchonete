@@ -6,7 +6,7 @@ import br.com.fiap.lanchonete.domain.dtos.PedidoDto;
 import br.com.fiap.lanchonete.domain.dtos.PedidoResponseDto;
 
 public interface PedidoServicePort {
-    PedidoDto save(PedidoDto produtoDto);
+    PedidoResponseDto save(PedidoDto produtoDto);
     List<PedidoDto> findAll();
     List<PedidoResponseDto> findAllComProdutos();
 

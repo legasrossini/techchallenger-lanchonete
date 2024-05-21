@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonete.infrastructure.adapters.repositories;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +18,7 @@ import br.com.fiap.lanchonete.infrastructure.adapters.entity.ClienteEntity;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.PedidoEntity;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.PedidoProdutoEntity;
 import br.com.fiap.lanchonete.infrastructure.adapters.entity.ProdutoEntity;
+import br.com.fiap.lanchonete.infrastructure.configs.mappers.PedidoResponseMapper;
 import br.com.fiap.lanchonete.infrastructure.enums.StatusPedido;
 
 @Repository
@@ -31,7 +31,7 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
     private ModelMapper modelMapper;
 
     @Override
-    public PedidoDto save(PedidoDto pedidoDto) {
+    public PedidoResponseDto save(PedidoDto pedidoDto) {
         //PedidoEntity pedidoEntity = modelMapper.map(pedidoDto, PedidoEntity.class);
         
         ClienteEntity clienteEntity = ClienteEntity.builder()
@@ -102,7 +102,7 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
 
         savedEntity = pedidoJpaRepository.save(savedEntity);
         
-        return modelMapper.map(savedEntity, PedidoDto.class);
+        return PedidoResponseMapper.map(savedEntity);
     }
 
     @Override
@@ -114,9 +114,11 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
     }
 
     public List<PedidoResponseDto> findAllComProdutos(){
-        return pedidoJpaRepository.findAllComProdutos()
-                .stream()
-                .map(entity -> modelMapper.map(entity, PedidoResponseDto.class))
-                .toList();
+        List<PedidoEntity> listaPedidosComProdutos = pedidoJpaRepository.findAllComProdutos();
+        
+        return listaPedidosComProdutos
+                    .stream()
+                    .map(PedidoResponseMapper::map)
+                    .toList();
     }
 }

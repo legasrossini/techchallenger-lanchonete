@@ -31,7 +31,7 @@ public class PedidoServiceImpl implements PedidoServicePort {
     private ClienteServicePort clienteService;
 
     @Override
-    public PedidoDto save(PedidoDto pedidoDto) {
+    public PedidoResponseDto save(PedidoDto pedidoDto) {
         BigDecimal valorPedido = BigDecimal.ZERO;
         AtomicInteger comboNum = new AtomicInteger(1);
 

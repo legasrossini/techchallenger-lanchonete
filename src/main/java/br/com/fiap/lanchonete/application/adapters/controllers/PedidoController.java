@@ -34,7 +34,7 @@ public class PedidoController {
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     public ResponseEntity<?> createPedidos(@RequestBody PedidoDto pedidoDto) {
         try{
-            PedidoDto savedPedido = pedidoServiceImpl.save(pedidoDto);
+            PedidoResponseDto savedPedido = pedidoServiceImpl.save(pedidoDto);
             return ResponseEntity.ok(savedPedido);
         }catch(RegraNegocioException rne){
             return ResponseEntity.badRequest().body(rne.getMessage());

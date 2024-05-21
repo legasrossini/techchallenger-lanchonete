@@ -3,7 +3,6 @@ package br.com.fiap.lanchonete.infrastructure.adapters.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import br.com.fiap.lanchonete.infrastructure.enums.StatusPedido;
 import jakarta.persistence.CascadeType;
