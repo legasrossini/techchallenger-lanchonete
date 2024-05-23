@@ -34,9 +34,10 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
     public PedidoResponseDto save(PedidoDto pedidoDto) {
         //PedidoEntity pedidoEntity = modelMapper.map(pedidoDto, PedidoEntity.class);
         
-        ClienteEntity clienteEntity = ClienteEntity.builder()
-                                            .cpf(pedidoDto.getCpfCliente())
-                                            .build();
+        ClienteEntity clienteEntity = pedidoDto.getCpfCliente() != null ? ClienteEntity.builder()
+                                                                                .cpf(pedidoDto.getCpfCliente())
+                                                                                .build()
+                                                                        : null;
 
         PedidoEntity pedidoEntity = PedidoEntity.builder()
                                             .id(UUID.randomUUID().toString())
