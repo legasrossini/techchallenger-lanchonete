@@ -80,6 +80,9 @@ public class ProdutoController {
     @ApiResponse(responseCode = "200", description = "Sucesso")
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     public ResponseEntity<ProdutoDto> updateProduto(@PathVariable String idProduto, @RequestBody ProdutoDto produtoDto) {
+        if (produtoServiceImpl.findByIdProduto(idProduto).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         produtoDto.setId(idProduto);
         ProdutoDto updatedProduto = produtoServiceImpl.saveOrUpdate(produtoDto);
         return ResponseEntity.ok(updatedProduto);

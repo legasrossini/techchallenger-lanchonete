@@ -1,16 +1,16 @@
 package br.com.fiap.lanchonete.domain.dtos;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.util.Optional;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Builder
