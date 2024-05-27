@@ -65,5 +65,5 @@ Em seguida é necessário informar em produtos um ou mais combos a serem solicit
 Estando o pedido montado, clicar em "Execute" para enviar o mesmo para a fila, onde o mesmo estará com o status de "RECEBIDO".
 Para visualizar todos os produtos na fila, expandir o método GET do grupo de pedidos e executar a consulta. Serão listados todos os produtos já realizados.
 
-##Informações adicionais
+## Informações adicionais
 No CRUD de produtos, o método DELETE efetua um "soft delete", atualizando a flag "ativo" para false. Ao listar os produtos, aqueles com status "ativo = false" não serão retornados. Porém na consulta de produto por ID, mesmo que esse esteja desativado, o mesmo é retornado para fins de consulta. A listagem de categorias também só lista os produtos ativos. Por fim, somente é possível efetuar pedidos para produtos ativos.
