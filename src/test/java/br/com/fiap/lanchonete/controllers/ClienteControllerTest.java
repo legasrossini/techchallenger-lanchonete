@@ -1,8 +1,8 @@
 package br.com.fiap.lanchonete.controllers;
 
-import br.com.fiap.lanchonete.domain.adapters.services.ClienteServiceImpl;
-import br.com.fiap.lanchonete.domain.dtos.ClienteDto;
-import br.com.fiap.lanchonete.domain.ports.repositories.ClienteRepositoryPort;
+import br.com.fiap.lanchonete.core.application.services.ClienteServiceImpl;
+import br.com.fiap.lanchonete.core.domain.dtos.ClienteDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
