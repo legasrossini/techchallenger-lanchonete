@@ -27,6 +27,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Produtos", description = "Produtos")
 public class ProdutoController {
 
+    @Autowired
     private final ProdutoServicePort produtoService;
 
     public ProdutoController(ProdutoServicePort produtoService) {
