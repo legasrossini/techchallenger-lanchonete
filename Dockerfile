@@ -19,14 +19,8 @@ RUN if [ ! -f target/*.jar ]; then echo "O arquivo JAR não foi encontrado" && e
 # Move o arquivo JAR gerado para o diretório raiz
 RUN mv target/*.jar /application.jar
 
-# Copia o script wait-for-mysql.sh para o diretório raiz
-COPY wait-for-mysql.sh /wait-for-mysql.sh
-
-# Dá permissões de execução para o script
-RUN chmod +x /wait-for-mysql.sh
-
 # Expõe a porta 8080
 EXPOSE 8080
 
-# Define o comando de entrada para executar o script e iniciar o aplicativo
-ENTRYPOINT ["/wait-for-mysql.sh", "db", "java","-jar","/application.jar"]
+# Define o comando de entrada para iniciar o aplicativo
+ENTRYPOINT ["java","-jar","/application.jar"]
