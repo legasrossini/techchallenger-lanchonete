@@ -2,6 +2,9 @@ package br.com.fiap.lanchonete.adapter.driver;
 
 import java.util.List;
 
+import br.com.fiap.lanchonete.adapter.driven.CategoriaRepositoryImp;
+import br.com.fiap.lanchonete.core.application.services.CategoriaServiceImpl;
+import br.com.fiap.lanchonete.core.domain.repositories.CategoriaRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +24,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Categorias", description = "Categorias de produtos")
 public class CategoriaController {
 
-    @Autowired
-    private CategoriaServicePort categoriaService;
+    private final CategoriaServicePort categoriaService;
+
+    public CategoriaController(CategoriaRepositoryPort categoriaRepository) {
+        this.categoriaService = new CategoriaServiceImpl(categoriaRepository);
+    }
 
     @GetMapping
     @Operation(description = "Lista todas as categorias disponíveis")

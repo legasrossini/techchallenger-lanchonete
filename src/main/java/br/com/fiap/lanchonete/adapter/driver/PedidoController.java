@@ -2,8 +2,11 @@ package br.com.fiap.lanchonete.adapter.driver;
 
 import java.util.List;
 
+import br.com.fiap.lanchonete.adapter.driven.PedidoRepositoryImp;
 import br.com.fiap.lanchonete.core.application.exceptions.RegraNegocioException;
 import br.com.fiap.lanchonete.core.application.ports.PedidoServicePort;
+import br.com.fiap.lanchonete.core.application.services.PedidoServiceImpl;
+import br.com.fiap.lanchonete.core.domain.repositories.PedidoRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +28,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Pedidos", description = "Pedidos de clientes")
 public class PedidoController {
 
-    @Autowired
-    private PedidoServicePort pedidoService;
+    private final PedidoServicePort pedidoService;
 
+    public PedidoController(PedidoServicePort pedidoService) {
+        this.pedidoService = pedidoService;
+    }
     @PostMapping
     @Operation(description = "Gera o pedido do cliente")
     @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = PedidoDto.class)))

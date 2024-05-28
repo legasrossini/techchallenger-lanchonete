@@ -1,34 +1,34 @@
 package br.com.fiap.lanchonete.core.application.services;
 
+import br.com.fiap.lanchonete.core.application.exceptions.RegraNegocioException;
+import br.com.fiap.lanchonete.core.application.ports.ClienteServicePort;
+import br.com.fiap.lanchonete.core.application.ports.PedidoServicePort;
+import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
+import br.com.fiap.lanchonete.core.domain.dtos.PedidoDto;
+import br.com.fiap.lanchonete.core.domain.dtos.PedidoResponseDto;
+import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
+import br.com.fiap.lanchonete.core.domain.repositories.PedidoRepositoryPort;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import br.com.fiap.lanchonete.core.application.exceptions.RegraNegocioException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import br.com.fiap.lanchonete.core.domain.dtos.PedidoDto;
-import br.com.fiap.lanchonete.core.domain.dtos.PedidoResponseDto;
-import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
-import br.com.fiap.lanchonete.core.application.ports.ClienteServicePort;
-import br.com.fiap.lanchonete.core.application.ports.PedidoServicePort;
-import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
-import br.com.fiap.lanchonete.core.domain.repositories.PedidoRepositoryPort;
-
 @Service
 public class PedidoServiceImpl implements PedidoServicePort {
 
-    @Autowired
+    private final PedidoRepositoryPort pedidoRepository;
     private PedidoRepositoryPort pedidoRepositoryPort;
-
-    @Autowired
     private ProdutoServicePort produtoService;
-
-    @Autowired
     private ClienteServicePort clienteService;
+
+    public PedidoServiceImpl(PedidoRepositoryPort pedidoRepository, ClienteRepositoryPort clienteRepository) {
+        this.pedidoRepository = pedidoRepository;
+        this.clienteService = new ClienteServiceImpl(clienteRepository);
+    }
 
     @Override
     public PedidoResponseDto save(PedidoDto pedidoDto) {

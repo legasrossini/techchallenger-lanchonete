@@ -1,6 +1,9 @@
 package br.com.fiap.lanchonete.adapter.driver;
 
+import br.com.fiap.lanchonete.adapter.driven.ClienteRepositoryImp;
 import br.com.fiap.lanchonete.core.application.ports.ClienteServicePort;
+import br.com.fiap.lanchonete.core.application.services.ClienteServiceImpl;
+import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +26,11 @@ import jakarta.validation.Valid;
 @Tag(name = "Clientes", description = "Clientes")
 public class ClienteController {
 
-    @Autowired
-    private ClienteServicePort clienteService;
+    private final ClienteServicePort clienteService;
+
+    public ClienteController(ClienteRepositoryPort clienteRepository) {
+        this.clienteService = new ClienteServiceImpl(clienteRepository);
+    }
 
     @GetMapping(value = "/{cpfCliente}", produces = {"application/json"})
     @Operation(description = "Consulta o cliente por CPF")

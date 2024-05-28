@@ -14,13 +14,16 @@ import java.util.UUID;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoServicePort {
-    @Autowired
-    private ProdutoRepositoryPort produtoRepository;
+
+    private final ProdutoRepositoryPort produtoRepository;
+
+    public ProdutoServiceImpl(ProdutoRepositoryPort produtoRepository) {
+        this.produtoRepository = produtoRepository;
+    }
 
     @Override
-    public ProdutoDto save(ProdutoDto produtoDto) {
-        produtoDto.setId(UUID.randomUUID().toString());
-        return produtoRepository.save(produtoDto);
+    public List<ProdutoDto> findAll() {
+        return produtoRepository.findAll();
     }
 
     @Override
@@ -29,8 +32,9 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     }
 
     @Override
-    public List<ProdutoDto> findAll() {
-        return produtoRepository.findAll();
+    public ProdutoDto save(ProdutoDto produtoDto) {
+        produtoDto.setId(UUID.randomUUID().toString());
+        return produtoRepository.save(produtoDto);
     }
 
     @Override

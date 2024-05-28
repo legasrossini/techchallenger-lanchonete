@@ -2,6 +2,7 @@ package br.com.fiap.lanchonete.adapter.driver;
 
 import java.util.List;
 
+import br.com.fiap.lanchonete.core.application.ports.CategoriaServicePort;
 import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Produtos", description = "Produtos")
 public class ProdutoController {
 
-    @Autowired
-    private ProdutoServicePort produtoService;
+    private final ProdutoServicePort produtoService;
 
+    public ProdutoController(ProdutoServicePort produtoService) {
+        this.produtoService = produtoService;
+    }
     @PostMapping
     @Operation(description = "Cadastra um novo produto")
     @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = ProdutoDto.class)))
