@@ -57,17 +57,12 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     public ProdutoDto saveOrUpdate(ProdutoDto produtoDto) {
         // Verifica se o produto já existe
         Optional<ProdutoDto> existingProduto = produtoRepository.findByIdProduto(produtoDto.getId());
-        if (existingProduto.isPresent()) {
-            // Atualiza o produto existente
-            ProdutoDto updatedProduto = existingProduto.get();
-            updatedProduto.setNome(produtoDto.getNome());
-            updatedProduto.setDescricao(produtoDto.getDescricao());
-            updatedProduto.setPreco(produtoDto.getPreco());
-            updatedProduto.setCategoria(produtoDto.getCategoria());
-            return produtoRepository.save(updatedProduto);
-        } else {
-            // Salva um novo produto
-            return produtoRepository.save(produtoDto);
-        }
+        // Atualiza o produto existente
+        ProdutoDto updatedProduto = existingProduto.get();
+        updatedProduto.setNome(produtoDto.getNome());
+        updatedProduto.setDescricao(produtoDto.getDescricao());
+        updatedProduto.setPreco(produtoDto.getPreco());
+        updatedProduto.setCategoria(produtoDto.getCategoria());
+        return produtoRepository.save(updatedProduto);
     }
 }
