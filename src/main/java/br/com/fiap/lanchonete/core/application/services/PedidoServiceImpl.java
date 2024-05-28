@@ -37,6 +37,10 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
         boolean clienteInformado = pedidoDto.getCpfCliente() != null && !pedidoDto.getCpfCliente().isEmpty();
         var clienteEntity = clienteInformado ? clienteService.findByCpfCliente(pedidoDto.getCpfCliente()) : null;
+
+        if (clienteInformado && clienteEntity == null){
+            throw new RegraNegocioException("Cliente não localizado");
+        }
         
         for (var p : Optional.ofNullable(pedidoDto.getProdutos()).orElse(Collections.emptyList())){
             Optional<ProdutoDto> lancheOptional = p.possuiLanche() ? produtoService.findByIdProduto(p.getLanche().getId()) : Optional.empty();
