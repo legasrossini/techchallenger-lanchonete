@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,9 +33,13 @@ public class PedidoRepositoryImp implements PedidoRepositoryPort {
 
     @Override
     public PedidoResponseDto save(PedidoDto pedidoDto) {
-        ClienteEntity clienteEntity = ClienteEntity.builder()
-                                            .cpf(pedidoDto.getCpfCliente())
-                                            .build();
+
+        //PedidoEntity pedidoEntity = modelMapper.map(pedidoDto, PedidoEntity.class);
+        
+        ClienteEntity clienteEntity = StringUtils.isBlank(pedidoDto.getCpfCliente()) ? null : ClienteEntity.builder()
+                                                                                                .cpf(pedidoDto.getCpfCliente())
+                                                                                                .build();
+
         PedidoEntity pedidoEntity = PedidoEntity.builder()
                                             .id(UUID.randomUUID().toString())
                                             .cliente(clienteEntity)
