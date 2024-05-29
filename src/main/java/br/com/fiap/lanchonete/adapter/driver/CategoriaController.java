@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonete.adapter.driver;
 
-
 import br.com.fiap.lanchonete.core.application.ports.CategoriaServicePort;
 import br.com.fiap.lanchonete.core.application.services.CategoriaServiceImpl;
 import br.com.fiap.lanchonete.core.domain.dtos.CategoriaDto;

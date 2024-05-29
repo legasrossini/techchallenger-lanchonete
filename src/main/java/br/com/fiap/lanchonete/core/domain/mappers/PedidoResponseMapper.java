@@ -38,11 +38,11 @@ public class PedidoResponseMapper {
 
                 })
                 .toList();
-        var clienteDto = entity.getCliente() == null ? null : ClienteDto.builder()
-                                                                .cpf(entity.getCliente().getCpf())
-                                                                .nome(entity.getCliente().getNome())
-                                                                .email(entity.getCliente().getEmail())
-                                                                .build();
+        var clienteDto = ClienteDto.builder()
+                .cpf(entity.getCliente().getCpf())
+                .nome(entity.getCliente().getNome())
+                .email(entity.getCliente().getEmail())
+                .build();
         return PedidoResponseDto.builder()
                 .id(entity.getId())
                 .dataHora(entity.getDataHora())

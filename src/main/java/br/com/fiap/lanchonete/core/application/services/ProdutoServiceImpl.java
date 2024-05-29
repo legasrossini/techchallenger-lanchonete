@@ -1,18 +1,13 @@
 package br.com.fiap.lanchonete.core.application.services;
 
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-
-import org.springframework.stereotype.Service;
-
 import br.com.fiap.lanchonete.adapter.driven.entity.CategoriaEntity;
 import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
 import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
 import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class ProdutoServiceImpl implements ProdutoServicePort {
 
@@ -58,12 +53,17 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     public ProdutoDto saveOrUpdate(ProdutoDto produtoDto) {
         // Verifica se o produto já existe
         Optional<ProdutoDto> existingProduto = produtoRepository.findByIdProduto(produtoDto.getId());
-        // Atualiza o produto existente
-        ProdutoDto updatedProduto = existingProduto.get();
-        updatedProduto.setNome(produtoDto.getNome());
-        updatedProduto.setDescricao(produtoDto.getDescricao());
-        updatedProduto.setPreco(produtoDto.getPreco());
-        updatedProduto.setCategoria(produtoDto.getCategoria());
-        return produtoRepository.save(updatedProduto);
+        if (existingProduto.isPresent()) {
+            // Atualiza o produto existente
+            ProdutoDto updatedProduto = existingProduto.get();
+            updatedProduto.setNome(produtoDto.getNome());
+            updatedProduto.setDescricao(produtoDto.getDescricao());
+            updatedProduto.setPreco(produtoDto.getPreco());
+            updatedProduto.setCategoria(produtoDto.getCategoria());
+            return produtoRepository.save(updatedProduto);
+        } else {
+            // Salva um novo produto
+            return produtoRepository.save(produtoDto);
+        }
     }
 }
