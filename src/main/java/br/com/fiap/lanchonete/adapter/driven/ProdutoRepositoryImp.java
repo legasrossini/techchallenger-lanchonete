@@ -1,16 +1,15 @@
 package br.com.fiap.lanchonete.adapter.driven;
 
-import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
-import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 import br.com.fiap.lanchonete.adapter.driven.entity.CategoriaEntity;
 import br.com.fiap.lanchonete.adapter.driven.entity.ProdutoEntity;
+import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
@@ -30,9 +29,8 @@ public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
 
     @Override
     public Optional<ProdutoDto> findByIdProduto(String idProduto) {
-        return Optional.ofNullable(produtoJpaRepository.findById(idProduto)
-                .map(entity -> modelMapper.map(entity, ProdutoDto.class))
-                .orElse(null));
+        return produtoJpaRepository.findById(idProduto)
+                .map(entity -> modelMapper.map(entity, ProdutoDto.class));
     }
 
     @Override
@@ -53,7 +51,7 @@ public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
         return produtoJpaRepository.findAllByAtivoTrue()
                 .stream()
                 .map(entity -> modelMapper.map(entity, ProdutoDto.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -61,7 +59,7 @@ public class ProdutoRepositoryImp implements ProdutoRepositoryPort {
         return produtoJpaRepository.findAllByAtivoTrueAndCategoria(categoria)
                 .stream()
                 .map(entity -> modelMapper.map(entity, ProdutoDto.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

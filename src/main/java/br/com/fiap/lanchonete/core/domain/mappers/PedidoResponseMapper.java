@@ -9,6 +9,9 @@ import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
 
 public class PedidoResponseMapper {
 
+    private PedidoResponseMapper() {
+    }
+
     public static PedidoResponseDto map(PedidoEntity entity) {
         var pedidosProdutoDto = entity.getProdutos().stream()
                 .map(pedProdEntity -> {

@@ -1,8 +1,10 @@
 package br.com.fiap.lanchonete.core.application.services;
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
 import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
 import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 
-@Service
+
 public class ProdutoServiceImpl implements ProdutoServicePort {
 
     private final ProdutoRepositoryPort produtoRepository;

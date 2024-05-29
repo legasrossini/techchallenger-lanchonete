@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonete.core.application.services;
 
-import br.com.fiap.lanchonete.core.domain.dtos.ClienteDto;
 import br.com.fiap.lanchonete.core.application.ports.ClienteServicePort;
+import br.com.fiap.lanchonete.core.domain.dtos.ClienteDto;
 import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
 
 public class ClienteServiceImpl implements ClienteServicePort {
