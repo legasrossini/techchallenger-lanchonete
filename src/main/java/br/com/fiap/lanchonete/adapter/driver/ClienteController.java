@@ -1,10 +1,5 @@
 package br.com.fiap.lanchonete.adapter.driver;
 
-import br.com.fiap.lanchonete.adapter.driven.ClienteRepositoryImp;
-import br.com.fiap.lanchonete.core.application.ports.ClienteServicePort;
-import br.com.fiap.lanchonete.core.application.services.ClienteServiceImpl;
-import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.lanchonete.core.application.ports.ClienteServicePort;
+import br.com.fiap.lanchonete.core.application.services.ClienteServiceImpl;
 import br.com.fiap.lanchonete.core.domain.dtos.ClienteDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
