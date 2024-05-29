@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
+import br.com.fiap.lanchonete.core.application.services.ProdutoServiceImpl;
 import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,11 +31,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Produtos", description = "Produtos")
 public class ProdutoController {
 
-    @Autowired
+
     private final ProdutoServicePort produtoService;
-    public ProdutoController(ProdutoServicePort produtoService) {
-        this.produtoService = produtoService;
+    public ProdutoController(ProdutoRepositoryPort produtoRepository) {
+        this.produtoService = new ProdutoServiceImpl(produtoRepository);
     }
+
+    
     @PostMapping
     @Operation(description = "Cadastra um novo produto")
     @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = ProdutoDto.class)))
