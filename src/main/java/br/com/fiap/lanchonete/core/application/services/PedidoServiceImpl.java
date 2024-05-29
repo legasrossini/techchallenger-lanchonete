@@ -9,7 +9,7 @@ import br.com.fiap.lanchonete.core.domain.dtos.PedidoResponseDto;
 import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
 import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
 import br.com.fiap.lanchonete.core.domain.repositories.PedidoRepositoryPort;
-import org.springframework.stereotype.Service;
+import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -17,17 +17,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Service
 public class PedidoServiceImpl implements PedidoServicePort {
 
     private final PedidoRepositoryPort pedidoRepository;
-    private PedidoRepositoryPort pedidoRepositoryPort;
-    private ProdutoServicePort produtoService;
-    private ClienteServicePort clienteService;
+    private final ProdutoServicePort produtoService;
+    private final ClienteServicePort clienteService;
 
-    public PedidoServiceImpl(PedidoRepositoryPort pedidoRepository, ClienteRepositoryPort clienteRepository) {
+    public PedidoServiceImpl(PedidoRepositoryPort pedidoRepository, ClienteRepositoryPort clienteRepository, ProdutoRepositoryPort produtoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.clienteService = new ClienteServiceImpl(clienteRepository);
+        this.produtoService = new ProdutoServiceImpl(produtoRepository);
     }
 
     @Override
@@ -37,6 +36,10 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
         boolean clienteInformado = pedidoDto.getCpfCliente() != null && !pedidoDto.getCpfCliente().isEmpty();
         var clienteEntity = clienteInformado ? clienteService.findByCpfCliente(pedidoDto.getCpfCliente()) : null;
+
+        if (clienteInformado && clienteEntity == null){
+            throw new RegraNegocioException("Cliente não localizado");
+        }
         
         for (var p : Optional.ofNullable(pedidoDto.getProdutos()).orElse(Collections.emptyList())){
             Optional<ProdutoDto> lancheOptional = p.possuiLanche() ? produtoService.findByIdProduto(p.getLanche().getId()) : Optional.empty();
@@ -82,18 +85,18 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
             p.setComboNum(comboNum.getAndIncrement());
 
-        };
+        }
 
         pedidoDto.setValor(valorPedido);
 
-        return pedidoRepositoryPort.save(pedidoDto);
+        return pedidoRepository.save(pedidoDto);
     }
     @Override
     public List<PedidoDto> findAll() {
-        return pedidoRepositoryPort.findAll();
+        return pedidoRepository.findAll();
     }
     @Override
     public List<PedidoResponseDto> findAllComProdutos() {
-        return pedidoRepositoryPort.findAllComProdutos();
+        return pedidoRepository.findAllComProdutos();
     }
 }

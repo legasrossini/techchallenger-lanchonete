@@ -1,13 +1,23 @@
 package br.com.fiap.lanchonete.adapter.driver;
 
+
 import java.util.List;
 
-import br.com.fiap.lanchonete.adapter.driven.PedidoRepositoryImp;
+
 import br.com.fiap.lanchonete.core.application.exceptions.RegraNegocioException;
 import br.com.fiap.lanchonete.core.application.ports.PedidoServicePort;
 import br.com.fiap.lanchonete.core.application.services.PedidoServiceImpl;
+import br.com.fiap.lanchonete.core.domain.dtos.PedidoDto;
+import br.com.fiap.lanchonete.core.domain.dtos.PedidoResponseDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ClienteRepositoryPort;
 import br.com.fiap.lanchonete.core.domain.repositories.PedidoRepositoryPort;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +25,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.lanchonete.core.domain.dtos.PedidoDto;
-import br.com.fiap.lanchonete.core.domain.dtos.PedidoResponseDto;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+
 
 @RestController
 @RequestMapping("/lanchonete/v1/pedidos")
@@ -29,10 +35,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class PedidoController {
 
     private final PedidoServicePort pedidoService;
-
-    public PedidoController(PedidoServicePort pedidoService) {
-        this.pedidoService = pedidoService;
+    private PedidoController(PedidoRepositoryPort pedidoRepository, ClienteRepositoryPort clienteRepository, ProdutoRepositoryPort produtoRepository) {
+        this.pedidoService = new PedidoServiceImpl(pedidoRepository, clienteRepository, produtoRepository);
     }
+
     @PostMapping
     @Operation(description = "Gera o pedido do cliente")
     @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = PedidoDto.class)))

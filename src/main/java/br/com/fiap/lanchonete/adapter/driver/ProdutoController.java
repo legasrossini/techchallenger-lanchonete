@@ -1,10 +1,20 @@
 package br.com.fiap.lanchonete.adapter.driver;
 
+
 import java.util.List;
 
-import br.com.fiap.lanchonete.core.application.ports.CategoriaServicePort;
-import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
+import br.com.fiap.lanchonete.core.application.services.ProdutoServiceImpl;
+import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,23 +25,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/lanchonete/v1/produtos")
 @Tag(name = "Produtos", description = "Produtos")
 public class ProdutoController {
 
-    private final ProdutoServicePort produtoService;
 
-    public ProdutoController(ProdutoServicePort produtoService) {
-        this.produtoService = produtoService;
+    private final ProdutoServicePort produtoService;
+    public ProdutoController(ProdutoRepositoryPort produtoRepository) {
+        this.produtoService = new ProdutoServiceImpl(produtoRepository);
     }
+
+    
     @PostMapping
     @Operation(description = "Cadastra um novo produto")
     @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json" , schema = @Schema(implementation = ProdutoDto.class)))
@@ -83,6 +89,9 @@ public class ProdutoController {
     @ApiResponse(responseCode = "200", description = "Sucesso")
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     public ResponseEntity<ProdutoDto> updateProduto(@PathVariable String idProduto, @RequestBody ProdutoDto produtoDto) {
+        if (produtoService.findByIdProduto(idProduto).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         produtoDto.setId(idProduto);
         ProdutoDto updatedProduto = produtoService.saveOrUpdate(produtoDto);
         return ResponseEntity.ok(updatedProduto);

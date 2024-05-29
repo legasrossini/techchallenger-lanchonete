@@ -1,10 +1,10 @@
 package br.com.fiap.lanchonete.core.application.services;
 
-import java.util.List;
-
-import br.com.fiap.lanchonete.core.domain.dtos.CategoriaDto;
 import br.com.fiap.lanchonete.core.application.ports.CategoriaServicePort;
+import br.com.fiap.lanchonete.core.domain.dtos.CategoriaDto;
 import br.com.fiap.lanchonete.core.domain.repositories.CategoriaRepositoryPort;
+
+import java.util.List;
 
 public class CategoriaServiceImpl implements CategoriaServicePort{
 
