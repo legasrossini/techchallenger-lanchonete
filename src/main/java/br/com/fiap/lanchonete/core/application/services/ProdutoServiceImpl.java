@@ -1,18 +1,14 @@
 package br.com.fiap.lanchonete.core.application.services;
 
-import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
-import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
-import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 import br.com.fiap.lanchonete.adapter.driven.entity.CategoriaEntity;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
+import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
+import br.com.fiap.lanchonete.core.domain.repositories.ProdutoRepositoryPort;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
 public class ProdutoServiceImpl implements ProdutoServicePort {
 
     private final ProdutoRepositoryPort produtoRepository;

@@ -1,10 +1,12 @@
 package br.com.fiap.lanchonete.adapter.driver;
 
-import java.util.List;
-
-import br.com.fiap.lanchonete.core.application.ports.CategoriaServicePort;
 import br.com.fiap.lanchonete.core.application.ports.ProdutoServicePort;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.lanchonete.core.domain.dtos.ProdutoDto;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 
 @RestController
 @RequestMapping("/lanchonete/v1/produtos")
@@ -28,7 +25,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class ProdutoController {
 
     private final ProdutoServicePort produtoService;
-
     public ProdutoController(ProdutoServicePort produtoService) {
         this.produtoService = produtoService;
     }
